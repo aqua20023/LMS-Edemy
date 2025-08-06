@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { use } from 'react'
 import { assets} from '../../assets/assets'
 import { Link } from 'react-router-dom'
-
+import { useClerk,UserButton, useUser } from '@clerk/clerk-react'
 const Navbar = () => {
 
   const isCourseListPage = location.pathname.includes('/course-list');
+  const {openSignIn} = useClerk();
+  const {user} = useUser();
+
 
 
 
@@ -13,19 +16,37 @@ const Navbar = () => {
      <img src={assets.logo} alt="Logo" className='w-28 lg:w-32 cursor-pointer'/>
      <div className='hidden md:flex items-center gap-5 text-grey-500'>
           <div className='flex items-center gap-5'>
-            <button>Become Educator</button>
-            <Link to='/my-enrollments'>My Enrollments</Link>
+            {user && 
+            <>
+              <button>Become Educator</button>
+              <p>|</p>
+              <Link to='/my-enrollments'>My Enrollments</Link>
+            </>
+            }
           </div>
-      <button className='px-5 py-2 bg-green-600 rounded-[50px] text-white'>Create Account</button>
+          {user ? <UserButton/> : 
+          <button onClick={()=> openSignIn()} className='px-5 py-2 bg-green-600 rounded-[50px] text-white'>Create Account</button>}
+      
      </div>
 
     {/* for phone screens */}
 
 
      <div className='md:hidden flex items-center gap-2 sm:gap-2 text-gray-500'>
-      <div>
-        <button>Become Educator</button>
+      <div className='flex items-center gap-1 sm:gap-2 max-sm:text-xs'>
+         {user && 
+            <>
+              <button>Become Educator</button>
+              <p>|</p>
+              <Link to='/my-enrollments'>My Enrollments</Link>
+            </>
+         }
       </div>
+      {
+        user ? <UserButton/> : 
+        <button onClick={()=> openSignIn()}><img src={assets.user_icon} alt="" /></button>
+      }
+      
      </div>
     </div>
   )
