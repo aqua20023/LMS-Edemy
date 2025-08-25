@@ -2,9 +2,12 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>
-      <h1>Footer</h1>
-    </div>
+    <footer>
+     <div>
+
+     </div>
+     <p>Copyright 2024 © GreatStack. All Right Reserved.</p>
+    </footer>
   )
 }
 

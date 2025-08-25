@@ -9,6 +9,7 @@ export const AppContextProvider = (props)=>{
     const navigate = useNavigate();
 
     const [allCourses, setAllCourses] = useState([]);
+    const [isEducator, setIsEducaor] = useState(true)
 
     // Fetch all courses
 
@@ -38,7 +39,11 @@ export const AppContextProvider = (props)=>{
     currency, 
     allCourses,
     navigate,
-    calculateRating
+    calculateRating,
+    isEducator,
+    setIsEducaor
+
+    
 
 
     }
