@@ -12,15 +12,24 @@ Currently, two official plugins are available:
 This project requires a Clerk publishable key for client-side authentication.
 
 1. Copy `.env.example` to `.env.local`
-2. Set the variable below:
+2. Set one of these variables:
 
 ```env
 VITE_CLERK_PUBLISHABLE_KEY=pk_live_... or pk_test_...
 ```
 
-3. For Vercel, add `VITE_CLERK_PUBLISHABLE_KEY` in Project Settings → Environment Variables and redeploy.
+Vite also supports this fallback at build time if your deployment environment uses:
 
-If this var is missing, the app throws `Missing Publishable Key` at startup.
+```env
+CLERK_PUBLISHABLE_KEY=pk_live_... or pk_test_...
+```
+
+3. For Vercel, add the variable under Project Settings → Environment Variables and redeploy.
+
+- Prefer `VITE_CLERK_PUBLISHABLE_KEY` for Vite builds.
+- If you use `CLERK_PUBLISHABLE_KEY`, the project now maps it into `import.meta.env.VITE_CLERK_PUBLISHABLE_KEY` during build.
+
+If the publishable key is still missing, the app throws `Missing Publishable Key` at startup.
 
 ## Expanding the ESLint configuration
 
